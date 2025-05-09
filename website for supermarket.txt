@@ -1,0 +1,906 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheapest - Affordable Quality Supermarket</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cart-item-enter {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        
+        .cart-item-enter-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: all 300ms ease-in;
+        }
+        
+        .cart-item-exit {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .cart-item-exit-active {
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 300ms ease-in;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-shopping-basket text-blue-500 text-2xl"></i>
+                <h1 class="text-2xl font-bold text-blue-600">Cheapest</h1>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                <a href="#categories" class="text-gray-700 hover:text-blue-600 font-medium">Categories</a>
+                <a href="#deals" class="text-gray-700 hover:text-blue-600 font-medium">Deals</a>
+                <a href="#about" class="text-gray-700 hover:text-blue-600 font-medium">About</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button id="search-btn" class="text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button id="cart-btn" class="relative text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t py-2 px-4">
+            <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">Home</a>
+            <a href="#categories" class="block py-2 text-gray-700 hover:text-blue-600">Categories</a>
+            <a href="#deals" class="block py-2 text-gray-700 hover:text-blue-600">Deals</a>
+            <a href="#about" class="block py-2 text-gray-700 hover:text-blue-600">About</a>
+        </div>
+        
+        <!-- Search Bar -->
+        <div id="search-bar" class="hidden bg-white border-t py-3 px-4">
+            <div class="container mx-auto flex">
+                <input type="text" placeholder="Search for products..." class="flex-grow px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button class="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-16 md:py-24">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Affordable Quality <br>At Your Fingertips</h1>
+                <p class="text-xl mb-6">Shop the best deals on groceries, household items and more. Always the lowest prices guaranteed!</p>
+                <div class="flex space-x-4">
+                    <a href="#categories" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition duration-300">Shop Now</a>
+                    <a href="#deals" class="border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-blue-600 transition duration-300">Today's Deals</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Groceries" class="rounded-lg shadow-xl max-w-full h-auto pulse">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Categories Section -->
+    <section id="categories" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Shop by Category</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <!-- Category 1 -->
+                <div class="category-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300 cursor-pointer">
+                    <div class="bg-gray-100 h-40 flex items-center justify-center">
+                        <i class="fas fa-utensils text-5xl text-blue-600"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Food</h3>
+                        <p class="text-gray-600 text-sm">Fresh produce, pantry staples & more</p>
+                    </div>
+                </div>
+                
+                <!-- Category 2 -->
+                <div class="category-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300 cursor-pointer">
+                    <div class="bg-gray-100 h-40 flex items-center justify-center">
+                        <i class="fas fa-wine-bottle text-5xl text-green-600"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Beverages</h3>
+                        <p class="text-gray-600 text-sm">Juices, sodas, alcohol & more</p>
+                    </div>
+                </div>
+                
+                <!-- Category 3 -->
+                <div class="category-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300 cursor-pointer">
+                    <div class="bg-gray-100 h-40 flex items-center justify-center">
+                        <i class="fas fa-spray-can text-5xl text-purple-600"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Household</h3>
+                        <p class="text-gray-600 text-sm">Cleaning supplies & essentials</p>
+                    </div>
+                </div>
+                
+                <!-- Category 4 -->
+                <div class="category-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300 cursor-pointer">
+                    <div class="bg-gray-100 h-40 flex items-center justify-center">
+                        <i class="fas fa-baby text-5xl text-pink-600"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Baby Care</h3>
+                        <p class="text-gray-600 text-sm">Diapers, formula & baby needs</p>
+                    </div>
+                </div>
+                
+                <!-- Category 5 -->
+                <div class="category-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300 cursor-pointer">
+                    <div class="bg-gray-100 h-40 flex items-center justify-center">
+                        <i class="fas fa-paw text-5xl text-yellow-600"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-2">Pet Care</h3>
+                        <p class="text-gray-600 text-sm">Food, treats & pet supplies</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Products -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold">Featured Products</h2>
+                <a href="#" class="text-blue-600 hover:underline">View All</a>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Product 1 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Organic Apples" class="w-full h-48 object-cover">
+                        <span class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">SALE</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">Organic Apples</h3>
+                        <p class="text-gray-600 text-sm mb-2">Fresh from local farms</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-lg font-bold text-blue-600">$2.99</span>
+                                <span class="text-sm text-gray-500 line-through ml-2">$3.49</span>
+                            </div>
+                            <button class="add-to-cart bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition duration-300" data-id="1" data-name="Organic Apples" data-price="2.99">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Milk" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">Fresh Milk</h3>
+                        <p class="text-gray-600 text-sm mb-2">1 Gallon, 2% Reduced Fat</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-lg font-bold text-blue-600">$3.49</span>
+                            </div>
+                            <button class="add-to-cart bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition duration-300" data-id="2" data-name="Fresh Milk" data-price="3.49">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1615484477778-ca27b7d555e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Bread" class="w-full h-48 object-cover">
+                        <span class="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">NEW</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">Whole Grain Bread</h3>
+                        <p class="text-gray-600 text-sm mb-2">Freshly baked daily</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-lg font-bold text-blue-600">$2.29</span>
+                            </div>
+                            <button class="add-to-cart bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition duration-300" data-id="3" data-name="Whole Grain Bread" data-price="2.29">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1627485937980-221c88ac04f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Eggs" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">Farm Fresh Eggs</h3>
+                        <p class="text-gray-600 text-sm mb-2">12 large eggs, cage-free</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-lg font-bold text-blue-600">$3.99</span>
+                                <span class="text-sm text-gray-500 line-through ml-2">$4.49</span>
+                            </div>
+                            <button class="add-to-cart bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition duration-300" data-id="4" data-name="Farm Fresh Eggs" data-price="3.99">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Special Deals -->
+    <section id="deals" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold">Today's Special Deals</h2>
+                <div class="flex items-center space-x-2">
+                    <span class="text-red-500 animate-pulse">
+                        <i class="fas fa-clock"></i>
+                    </span>
+                    <span class="font-medium">Ends in 12:34:56</span>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-r from-red-500 to-orange-500 rounded-lg p-6 text-white mb-8">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-4 md:mb-0">
+                        <h3 class="text-2xl font-bold mb-2">Mega Discount Week!</h3>
+                        <p class="mb-4">Save up to 50% on selected items. Limited time offer!</p>
+                        <button class="bg-white text-red-500 px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition duration-300">
+                            Shop Now
+                        </button>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Discount" class="rounded-lg max-w-full h-auto">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Deal 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border border-red-200">
+                    <div class="bg-red-50 p-4 flex items-center">
+                        <div class="bg-red-500 text-white p-3 rounded-full mr-4">
+                            <i class="fas fa-tag text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Buy 1 Get 1 Free</h3>
+                            <p class="text-gray-600 text-sm">On selected cereals</p>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-gray-700 mb-4">Stock up on your favorite breakfast cereals with this amazing deal!</p>
+                        <button class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 transition duration-300">
+                            Claim Offer
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Deal 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border border-blue-200">
+                    <div class="bg-blue-50 p-4 flex items-center">
+                        <div class="bg-blue-500 text-white p-3 rounded-full mr-4">
+                            <i class="fas fa-percentage text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">30% Off</h3>
+                            <p class="text-gray-600 text-sm">All organic produce</p>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-gray-700 mb-4">Eat healthy while saving money on our premium organic fruits and vegetables.</p>
+                        <button class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300">
+                            Claim Offer
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Deal 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border border-green-200">
+                    <div class="bg-green-50 p-4 flex items-center">
+                        <div class="bg-green-500 text-white p-3 rounded-full mr-4">
+                            <i class="fas fa-gift text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Free Gift</h3>
+                            <p class="text-gray-600 text-sm">With $50+ purchase</p>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-gray-700 mb-4">Spend $50 or more and receive a free gift! While supplies last.</p>
+                        <button class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition duration-300">
+                            Claim Offer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-blue-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Sarah Johnson</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"I've been shopping at Cheapest for years. Their prices are unbeatable and the quality is always excellent. The new website makes online ordering a breeze!"</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-green-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Michael Chen</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"The weekly deals are amazing! I save at least 30% on my grocery bill compared to other stores. Delivery is always on time and the produce is fresh."</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-purple-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Emma Rodriguez</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Customer service is outstanding. When I had an issue with my order, they resolved it immediately. I love the new mobile app too - makes shopping so convenient!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <h2 class="text-3xl font-bold mb-4">About Cheapest</h2>
+                    <p class="text-gray-600 mb-4">Founded in 2010, Cheapest has grown from a single neighborhood grocery store to a regional chain with 25 locations. Our mission is simple: provide high-quality products at the lowest possible prices.</p>
+                    <p class="text-gray-600 mb-6">We work directly with farmers and producers to cut out middlemen and pass the savings directly to you. Our no-frills approach means you won't find fancy displays or expensive decor in our stores - just great products at great prices.</p>
+                    <div class="flex space-x-4">
+                        <div class="bg-blue-100 p-4 rounded-lg text-center">
+                            <div class="text-blue-600 text-2xl font-bold mb-1">25+</div>
+                            <div class="text-gray-600 text-sm">Locations</div>
+                        </div>
+                        <div class="bg-green-100 p-4 rounded-lg text-center">
+                            <div class="text-green-600 text-2xl font-bold mb-1">500+</div>
+                            <div class="text-gray-600 text-sm">Employees</div>
+                        </div>
+                        <div class="bg-yellow-100 p-4 rounded-lg text-center">
+                            <div class="text-yellow-600 text-2xl font-bold mb-1">1M+</div>
+                            <div class="text-gray-600 text-sm">Happy Customers</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1556740738-b6a63b27a3a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Store" class="rounded-lg shadow-lg w-full">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter -->
+    <section class="py-12 bg-blue-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl font-bold mb-2">Get Exclusive Deals</h2>
+            <p class="mb-6 max-w-2xl mx-auto">Subscribe to our newsletter and be the first to know about special offers, new products, and store events.</p>
+            <div class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none text-gray-800">
+                <button class="bg-blue-800 px-6 py-3 rounded-r-lg hover:bg-blue-900 transition duration-300">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-shopping-basket text-blue-500 text-2xl"></i>
+                        <h3 class="text-2xl font-bold">Cheapest</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">Affordable quality for everyone.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Shop</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">All Products</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Featured</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">New Arrivals</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Deals & Promotions</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Gift Cards</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Shipping & Delivery</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Returns & Exchanges</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Store Locations</h4>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">123 Main St, Anytown</li>
+                        <li class="text-gray-400">456 Oak Ave, Somewhere</li>
+                        <li class="text-gray-400">789 Pine Blvd, Elsewhere</li>
+                        <li class="text-gray-400">101 Maple Dr, Nowhere</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 Cheapest. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-lg transform translate-x-full z-50 transition-transform duration-300 ease-in-out">
+        <div class="h-full flex flex-col">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h3 class="text-xl font-bold">Your Cart</h3>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items" class="flex-grow overflow-y-auto p-4">
+                <div class="text-center py-8 text-gray-500">
+                    <i class="fas fa-shopping-cart text-4xl mb-2"></i>
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+            
+            <div class="p-4 border-t">
+                <div class="flex justify-between mb-2">
+                    <span class="font-medium">Subtotal:</span>
+                    <span id="cart-subtotal">$0.00</span>
+                </div>
+                <div class="flex justify-between mb-4">
+                    <span class="font-medium">Tax:</span>
+                    <span id="cart-tax">$0.00</span>
+                </div>
+                <div class="flex justify-between text-lg font-bold mb-4">
+                    <span>Total:</span>
+                    <span id="cart-total">$0.00</span>
+                </div>
+                <button id="checkout-btn" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold">Checkout</h3>
+                    <button id="close-checkout" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="checkout-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2" for="name">Full Name</label>
+                        <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2" for="email">Email</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2" for="address">Shipping Address</label>
+                        <textarea id="address" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2" for="payment">Payment Method</label>
+                        <select id="payment" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <option value="">Select payment method</option>
+                            <option value="credit">Credit Card</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="cash">Cash on Delivery</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                        Place Order
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Order Confirmation Modal -->
+    <div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 p-6 text-center">
+            <div class="text-green-500 text-5xl mb-4">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">Order Confirmed!</h3>
+            <p class="text-gray-600 mb-6">Thank you for your purchase. Your order has been placed successfully.</p>
+            <button id="close-confirmation" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition duration-300 hidden">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Search Bar Toggle
+        const searchBtn = document.getElementById('search-btn');
+        const searchBar = document.getElementById('search-bar');
+        
+        searchBtn.addEventListener('click', () => {
+            searchBar.classList.toggle('hidden');
+        });
+        
+        // Shopping Cart Functionality
+        const cartBtn = document.getElementById('cart-btn');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const closeCartBtn = document.getElementById('close-cart');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+        const cartTax = document.getElementById('cart-tax');
+        const cartTotal = document.getElementById('cart-total');
+        const cartCount = document.getElementById('cart-count');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        
+        let cart = [];
+        
+        // Add to Cart
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const productId = button.getAttribute('data-id');
+                const productName = button.getAttribute('data-name');
+                const productPrice = parseFloat(button.getAttribute('data-price'));
+                
+                // Check if product already in cart
+                const existingItem = cart.find(item => item.id === productId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                cartSidebar.classList.remove('translate-x-full');
+                
+                // Add animation to button
+                button.classList.add('animate-ping');
+                setTimeout(() => {
+                    button.classList.remove('animate-ping');
+                }, 500);
+            });
+        });
+        
+        // Update Cart
+        function updateCart() {
+            // Update cart count
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart items
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-shopping-cart text-4xl mb-2"></i>
+                        <p>Your cart is empty</p>
+                    </div>
+                `;
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="cart-item mb-4 p-3 bg-gray-50 rounded-lg">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">${item.name}</h4>
+                            <button class="remove-item text-red-500 hover:text-red-700" data-id="${item.id}">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <button class="decrease-quantity text-gray-500 hover:text-blue-600 px-2" data-id="${item.id}">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="mx-2">${item.quantity}</span>
+                                <button class="increase-quantity text-gray-500 hover:text-blue-600 px-2" data-id="${item.id}">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <span class="font-medium">$${(item.price * item.quantity).toFixed(2)}</span>
+                        </div>
+                    </div>
+                `).join('');
+                
+                // Add event listeners to new buttons
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const productId = button.getAttribute('data-id');
+                        cart = cart.filter(item => item.id !== productId);
+                        updateCart();
+                    });
+                });
+                
+                document.querySelectorAll('.decrease-quantity').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const productId = button.getAttribute('data-id');
+                        const item = cart.find(item => item.id === productId);
+                        
+                        if (item.quantity > 1) {
+                            item.quantity -= 1;
+                        } else {
+                            cart = cart.filter(item => item.id !== productId);
+                        }
+                        
+                        updateCart();
+                    });
+                });
+                
+                document.querySelectorAll('.increase-quantity').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const productId = button.getAttribute('data-id');
+                        const item = cart.find(item => item.id === productId);
+                        item.quantity += 1;
+                        updateCart();
+                    });
+                });
+            }
+            
+            // Calculate totals
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.08; // 8% tax
+            const total = subtotal + tax;
+            
+            cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+            cartTax.textContent = `$${tax.toFixed(2)}`;
+            cartTotal.textContent = `$${total.toFixed(2)}`;
+        }
+        
+        // Toggle Cart Sidebar
+        cartBtn.addEventListener('click', () => {
+            cartSidebar.classList.toggle('translate-x-full');
+        });
+        
+        closeCartBtn.addEventListener('click', () => {
+            cartSidebar.classList.add('translate-x-full');
+        });
+        
+        // Checkout
+        const checkoutModal = document.getElementById('checkout-modal');
+        const closeCheckoutBtn = document.getElementById('close-checkout');
+        const checkoutForm = document.getElementById('checkout-form');
+        const confirmationModal = document.getElementById('confirmation-modal');
+        const closeConfirmationBtn = document.getElementById('close-confirmation');
+        
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            checkoutModal.classList.remove('hidden');
+            cartSidebar.classList.add('translate-x-full');
+        });
+        
+        closeCheckoutBtn.addEventListener('click', () => {
+            checkoutModal.classList.add('hidden');
+        });
+        
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // In a real app, you would process the payment here
+            checkoutModal.classList.add('hidden');
+            confirmationModal.classList.remove('hidden');
+            
+            // Clear cart
+            cart = [];
+            updateCart();
+        });
+        
+        closeConfirmationBtn.addEventListener('click', () => {
+            confirmationModal.classList.add('hidden');
+        });
+        
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.remove('hidden');
+            } else {
+                backToTopBtn.classList.add('hidden');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Add slide-in animation to sections when scrolling
+        const sections = document.querySelectorAll('section');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('slide-in');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
